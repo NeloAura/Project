@@ -1,5 +1,5 @@
 
-   
+ //constants  
 const config = require('config.json');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
@@ -25,7 +25,7 @@ module.exports = {
     update,
     delete: _delete
 };
-
+//functions
 async function authenticate({ email, password, ipAddress }) {
     const user = await db.User.scope('withHash').findOne({ where: { email } });
 

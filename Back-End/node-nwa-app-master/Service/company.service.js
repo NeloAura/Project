@@ -16,20 +16,18 @@ async function getAll() {
 }
 
 async function getById(id) {
-    return await getUser(id);
+    return await getCompany(id);
 }
 
 async function create(params) {
     // validate
-    if (await db.Company.findOne({ where: { email: params.email } })) {
-        throw 'Email "' + params.email + '" is already registered';
+    if (await db.Company.findOne({ where: { companyname: params.companyname } })) {
+        throw 'typecode "' + params.typecode + '" is already registered';
     }
 
     const company = new db.Company(params);
     
-    // hash password
-    company.passwordHash = await bcrypt.hash(params.password, 10);
-
+    
     // save company
     await company.save();
 }
@@ -38,9 +36,9 @@ async function update(id, params) {
     const company = await getUser(id);
 
     // validate
-    const emailChanged = params.email && company.email !== params.email;
-    if (emailChanged && await db.Company.findOne({ where: { email: params.email } })) {
-        throw 'Email "' + params.email + '" is already registered';
+    const typeChanged = params.typecode && company.typecode !== params.typecode;
+    if (typeChanged && await db.Company.findOne({ where: { typecode: params.typecode } })) {
+        throw 'typecode "' + params.typecode + '" is already registered';
     }
 
     // hash password if it was entered
@@ -60,7 +58,7 @@ async function _delete(id) {
 
 // helper functions
 
-async function getUser(id) {
+async function getCompany(id) {
     const company = await db.Company.findByPk(id);
     if (!company) throw 'Company not found';
     return company;

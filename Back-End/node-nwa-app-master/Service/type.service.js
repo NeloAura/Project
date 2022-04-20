@@ -20,8 +20,8 @@ async function getById(id) {
 
 async function create(params) {
     // validate
-    if (await db.Type.findOne({ where: { description: params.description } })) {
-        throw 'type "' + params.description + '" is already registered';
+    if (await db.Type.findOne({ where: { typecode: params.typecode } })) {
+        throw 'type "' + params.typecode + '" is already registered';
     }
 
     const type = new db.Type(params);
@@ -36,9 +36,9 @@ async function update(id, params) {
     const type = await getType(id);
 
     // validate
-    const typeChanged = params.description && user.description !== params.description;
-    if (typeChanged && await db.Type.findOne({ where: { description: params.description } })) {
-        throw 'Type "' + params.description + '" is already registered';
+    const typeChanged = params.typecode && user.typecode !== params.typecode;
+    if (typeChanged && await db.Type.findOne({ where: { typecode: params.typecode } })) {
+        throw 'Type "' + params.typecode + '" is already registered';
     }
 
     

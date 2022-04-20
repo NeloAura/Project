@@ -52,11 +52,8 @@ function _delete(req, res, next) {
 function createSchema(req, res, next) {
     const schema = Joi.object({
         companyname: Joi.string().required(),
-        role: Joi.string().valid(Role.Company).required(),
-        mobile:Joi.string().required(),
-        email: Joi.string().email().required(),
-        password: Joi.string().min(6).required(),
-        confirmPassword: Joi.string().valid(Joi.ref('password')).required()
+        typecode: Joi.string().valid(Role.Company).required(),
+        
     });
     validateRequest(req, next, schema);
 }
@@ -64,11 +61,8 @@ function createSchema(req, res, next) {
 function updateSchema(req, res, next) {
     const schema = Joi.object({
         companyname: Joi.string().empty(''),
-        role: Joi.string().valid(Role.Company).empty(''),
-        mobile:Joi.string().required(),
-        email: Joi.string().email().empty(''),
-        password: Joi.string().min(6).empty(''),
-        confirmPassword: Joi.string().valid(Joi.ref('password')).empty('')
-    }).with('password', 'confirmPassword');
+        typecode: Joi.string().valid(Role.Company).required(),
+        
+    })
     validateRequest(req, next, schema);
 }

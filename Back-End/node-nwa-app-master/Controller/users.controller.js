@@ -1,3 +1,4 @@
+//constants
 const express = require('express');
 const router = express.Router();
 const Joi = require('joi');
@@ -22,6 +23,8 @@ router.put('/:id', authorize(), updateSchema, update);
 router.delete('/:id', authorize(), _delete);
 
 module.exports = router;
+
+//functions
 
 function authenticateSchema(req, res, next) {
     const schema = Joi.object({

@@ -1,11 +1,7 @@
+//Constants
 const config = require('config.json');
 const mysql = require('mysql2/promise');
 const { Sequelize } = require('sequelize');
-
-
- 
-
-
 
 
 
@@ -32,12 +28,12 @@ async function initialize() {
     
     // relationships
     db.User.hasMany(db.Marker,{onDelete:'CASCADE',onUpdate:'CASCADE'});
-    db.Marker.belongsTo(db.User);
-    db.Marker.belongsTo(db.Type);
-    db.Company.hasMany(db.Type,{onUpdate:'CASCADE'});
-    db.Type.hasMany(db.Marker,{onDelete:'CASCADE',onUpdate:'CASCADE'});
-    db.Type.belongsTo(db.Company);
     db.User.hasMany(db.RefreshToken, { onDelete: 'CASCADE' });
+    db.User.belongsTo(db.Company);
+    db.Marker.belongsTo(db.User);
+    db.Company.hasMany(db.User,{onUpdate:'CASCADE',onDelete:'CASCADE'});
+    db.Company.hasMany(db.Type);
+    db.Type.belongsTo(db.Company);
     db.RefreshToken.belongsTo(db.User);
 
     // sync all models with database

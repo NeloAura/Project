@@ -4,6 +4,7 @@ module.exports = model;
 
 function model(sequelize) {
     const attributes = {
+        typecode: {type: DataTypes.STRING, allowNull: false},
         description: { type: DataTypes.STRING, allowNull: false }
     };
 
